@@ -93,4 +93,4 @@ function GoBack(){
             window.requestAnimationFrame(HerotoZeroWidth)
         }
         
-      }
+    }
