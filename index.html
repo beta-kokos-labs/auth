@@ -69,7 +69,7 @@
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        alert('user '+user)
+        alert('user '+result.user.photoURL+' | '+result.user.email)
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       }).catch((error) => {
