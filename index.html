@@ -34,7 +34,7 @@
     </style>
 </head>
 
-    <button class="google-signup-btn">
+    <button class="google-signup-btn" id='google-sign-up'>
         <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo">
         Sign up with Google
     </button>
@@ -61,8 +61,8 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, provider)
+    document.getElementById('google-sign-up').onclick = function(){
+      signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -80,7 +80,7 @@
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
-      });
+      });}
   </script>
 </body>
 
