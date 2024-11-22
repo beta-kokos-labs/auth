@@ -198,28 +198,62 @@ form.addEventListener('click', (e) => {
 });
 // Initialize Firebase and get the auth object
 //const auth = getAuth();
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-// Function to handle email/password sign-up
-function signUpWithEmailPassword() {
+const auth = getAuth();
+
+function checkEmailVerified(user) {
+    user.reload() // Refresh the user's data
+        .then(() => {
+            if (user.emailVerified) {
+                alert(`Welcome back, ${user.displayName || user.email}! Your email has been verified.`);
+                // Redirect to the main app or dashboard
+                window.location.href = "dashboard.html";
+            } else {
+                alert(
+                    "Your email is not verified. Please check your inbox and verify your email before signing in."
+                );
+            }
+        })
+        .catch((error) => {
+            console.error("Error reloading user data:", error.message);
+            alert("Error verifying your email status. Please try again.");
+        });
+}
+
+function signInWithEmailPassword() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Use createUserWithEmailAndPassword correctly
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // User signed up successfully
             const user = userCredential.user;
-            alert(`Sign-up successful for ${user.email}`);
+
+            if (!user.emailVerified) {
+                alert("Your email is not verified. Please verify your email.");
+                checkEmailVerified(user); // Prompt to reload and check again
+            } else {
+                alert(`Welcome back, ${user.displayName || user.email}!`);
+                // Redirect to the main app or dashboard
+                window.location.href = "dashboard.html";
+            }
         })
         .catch((error) => {
-            // Handle errors
             const errorCode = error.code;
             const errorMessage = error.message;
             alert(`Error [${errorCode}]: ${errorMessage}`);
         });
 }
-
 /*
+// Event listener for form submission
+const form = document.getElementById('signin-form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    signInWithEmailPassword();
+});
+
+
+
 function signUpWithEmailPassword() {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
