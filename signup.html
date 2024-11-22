@@ -237,11 +237,6 @@ function signUpWithEmailPassword() {
                     );
                 });
         })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(`Error [${errorCode}]: ${errorMessage}`);
-        });
 }
 
 // Event listener for form submission
