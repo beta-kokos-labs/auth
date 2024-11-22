@@ -196,7 +196,64 @@ form.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent form submission
     signUpWithEmailPassword();
 });
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    sendEmailVerification, 
+    updateProfile 
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
+const auth = getAuth();
+
+// Sign-up function
+function signUpWithEmailPassword() {
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+
+            // Update user profile with username
+            updateProfile(user, { displayName: username })
+                .then(() => {
+                    console.log(`User profile updated with username: ${username}`);
+                })
+                .catch((error) => {
+                    console.error("Error updating profile:", error.message);
+                });
+
+            // Send email verification
+            sendEmailVerification(user)
+                .then(() => {
+                    alert(
+                        `Sign-up successful! A verification email has been sent to ${email}. Please verify your email to complete the registration.`
+                    );
+                })
+                .catch((error) => {
+                    console.error("Error sending verification email:", error.message);
+                    alert(
+                        "Sign-up successful, but there was an error sending the verification email. Please try again later."
+                    );
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(`Error [${errorCode}]: ${errorMessage}`);
+        });
+}
+
+// Event listener for form submission
+const form = document.getElementById('signup-form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    signUpWithEmailPassword();
+});
+
+        
+/*
 function signUpWithEmailPassword() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -228,7 +285,7 @@ function sendEmailVerification(user) {
             console.error('Error sending verification email:', error.message);
         });
 }
-
+*/
     </script>
 </body>
 </html>
