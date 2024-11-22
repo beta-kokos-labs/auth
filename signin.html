@@ -139,7 +139,7 @@
                <!--img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"-->
                  <img class="w-6 h-6" src="https://www.svgrepo.com/show/50809/google.svg" loading="lazy" alt="google logo">
                Sign up with Google
-            </button>
+            </button><div class="line-container">or</div><br><a href="/signup.html">don't have an account, get one here</a>
         </form>
     </div>
 
@@ -193,10 +193,8 @@
       });}
 
 form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for signing up!');
-            form.reset();
-        });
+      signInWithEmailPassword()
+});
         
 function signInWithEmailPassword() {
   var email = document.getElementById('email').value;
