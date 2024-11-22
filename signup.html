@@ -203,7 +203,7 @@ function signUpWithEmailPassword() {
     const auth = getAuth(); // Use getAuth to get the instance
 
     // Create a new user with email and password
-    auth.createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed up successfully
             const user = userCredential.user;
