@@ -193,12 +193,10 @@
       });}
 
 form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for signing up!');
-            form.reset();
-        });
+     signUpWithEmailPassword()
+});
         
-function signInWithEmailPassword() {
+/*function signInWithEmailPassword() {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
   // [START auth_signin_password]
@@ -214,7 +212,7 @@ function signInWithEmailPassword() {
     });
   // [END auth_signin_password]
 }
-/*
+*/
 function signUpWithEmailPassword() {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
@@ -222,6 +220,7 @@ function signUpWithEmailPassword() {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in 
+      sendEmailVerification()
       var user = userCredential.user;
       // ...
     })
@@ -243,7 +242,7 @@ function sendEmailVerification() {
   // [END auth_send_email_verification]
 }
 
-function sendPasswordReset() {
+/*function sendPasswordReset() {
   const email = document.getElementById('password').value;
   // [START auth_send_password_reset]
   firebase.auth().sendPasswordResetEmail(email)
